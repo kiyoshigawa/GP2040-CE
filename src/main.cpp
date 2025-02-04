@@ -12,6 +12,13 @@
 
 #include <cstdlib>
 
+
+// Debug Printing via UART:
+#include <stdio.h>
+#include "pico/stdlib.h"
+#include "hardware/uart.h"
+#include "i2c_analog_tla2528.h"
+
 // Custom implementation of __gnu_cxx::__verbose_terminate_handler() to reduce binary size
 namespace __gnu_cxx {
 void __verbose_terminate_handler()
@@ -39,6 +46,25 @@ int main() {
 
 	// Create GP2040 Main Core - Setup Core0
 	gp2040Core0->setup();
+
+
+	#define UART_ID uart1
+	#define BAUD_RATE 115200
+	#define UART_TX_PIN 24
+	#define UART_RX_PIN 21
+
+	// Set up our UART with the required speed.
+	uart_init(UART_ID, BAUD_RATE);
+	// Set the TX and RX pins by using the function select on the GPIO
+	// Set datasheet for more information on function select
+	gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
+	gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);
+
+	// Send out a string, with CR/LF conversions
+	uart_puts(UART_ID, " UART Debug Enabled!\r\n");
+
+	// I2CAnalogTLA2528 * tla2528 = new I2CAnalogTLA2528();
+	// tla2528->test();
 
 	// Create GP2040 Thread for Core1
 	multicore_launch_core1(core1);
