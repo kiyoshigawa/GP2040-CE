@@ -12,6 +12,17 @@
 #define UART_RX_PIN 21
 #define UART_TX_PIN 24
 
+#define TLA2528_MAX_BUFFER_LENGTH 128
+
+// TLA2528 OpCodes for I2C Operations
+#define TLA2528_SINGLE_REGISTER_READ  0b00010000
+#define TLA2528_SINGLE_REGISTER_WRITE 0b00001000
+#define TLA2528_SET_BIT               0b00011000
+#define TLA2528_CLAR_BIT              0b00100000
+#define TLA2528_CONT_REGISTER_READ    0b00110000
+#define TLA2528_CONT_REGISTER_WRITE   0b00101000
+
+
 class TLA2528 {
   protected:
 	uint8_t address;
@@ -24,7 +35,7 @@ class TLA2528 {
 
   private:	
 	PeripheralI2C* i2c;
-	unsigned char i2c_buffer[128];
+	unsigned char i2c_buffer[TLA2528_MAX_BUFFER_LENGTH];
 };
 
 #endif // _TLA2528_H
