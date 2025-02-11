@@ -17,7 +17,7 @@ class TLA2528 {
 	uint8_t address;
   public:
     // Constructor 
-	TLA2528(PeripheralI2C *i2cController, uint8_t addr = 0x40);
+	TLA2528(PeripheralI2C *i2cController, uint8_t addr = 0x10);
     // Methods
     void debug_init();
     void send_test_message();

@@ -15,7 +15,7 @@ void TLA2528::debug_init() {
     gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);
 
     // Send out a string, with CR/LF conversions
-    uart_puts(UART_ID, " UART Debug Enabled!\r\n");
+    uart_puts(UART_ID, "UART TLA2528->debug_init() Debug Enabled!\r\n");
 }
 
 void TLA2528::send_test_message() {
